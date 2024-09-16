@@ -1,9 +1,9 @@
 
 document.addEventListener('DOMContentLoaded', function() {
-  const conciertoInput = document.getElementById('concierto'); // Selecciona el elemento del concierto
-  const cantidadInput = document.getElementById('cantidad');   // Selecciona el input de cantidad
-  const comprarBtn = document.getElementById('comprarBtn');     // Selecciona el botón de compra
-  const resultadoDiv = document.getElementById('resultado');    // Selecciona el div donde se mostrará el resultado
+  const conciertoInput = document.getElementById('concierto');
+  const cantidadInput = document.getElementById('cantidad');   
+  const comprarBtn = document.getElementById('comprarBtn');    
+  const resultadoDiv = document.getElementById('resultado');    
 
 
   const precioEntradaBadOmens = 150;
