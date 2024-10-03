@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const arrayDeNombresDeConciertos = database.map(concierto => concierto.nombre);
     agregarConciertosAlSelect(conciertoInput, arrayDeNombresDeConciertos);
 
-    // Cargar datos del Local Storage si existen
+    
     cargarDatosPrevios();
 
     function calcularCostoTotal(precioEntrada, cantidad) {
@@ -93,10 +93,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 costoTotal: costoTotal
             }
         ]
-        // Guardar datos en el Local Storage
+
         localStorage.setItem('ticketsComprados', JSON.stringify(arrayConNuevoTicket));
 
-        // Mostrar resumen de la compra
+        
         resultadoDiv.innerHTML = `
             <h2>Resumen de tu compra:</h2>
             <p>Concierto: ${nombreConcierto}</p>
@@ -127,7 +127,7 @@ document.addEventListener('DOMContentLoaded', function() {
         procesarCompraConcierto(conciertoSeleccionado.nombre, cantidadEntradas, conciertoSeleccionado.precio);
     });
 
-    // Función para cargar los datos del Local Storage
+   
     function cargarDatosPrevios() {
         const compraGuardada = localStorage.getItem('ticketsComprados');
 
