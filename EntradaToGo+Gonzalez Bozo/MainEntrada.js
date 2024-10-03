@@ -67,6 +67,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const cantidadInput = document.getElementById('cantidad');   
     const comprarBtn = document.getElementById('comprarBtn');    
     const resultadoDiv = document.getElementById('resultado');
+    const resultadoDivCompraPrevia = document.getElementById('compraPrevia');
   
     const arrayDeNombresDeConciertos = database.map(concierto => concierto.nombre);
     agregarConciertosAlSelect(conciertoInput, arrayDeNombresDeConciertos);
@@ -80,13 +81,20 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function procesarCompraConcierto(nombreConcierto, cantidadEntradas, precioEntrada) {
         const costoTotal = calcularCostoTotal(precioEntrada, cantidadEntradas);
+        const ticketsCompradosStringify = localStorage.getItem('ticketsComprados');
+        const ticketsComprados = ticketsCompradosStringify || '[]'
+        const ticketsCompradosParse = JSON.parse(ticketsComprados);
 
+        const arrayConNuevoTicket = [
+            ...ticketsCompradosParse,
+            {
+                nombreConcierto: nombreConcierto,
+                cantidadEntradas: cantidadEntradas,
+                costoTotal: costoTotal
+            }
+        ]
         // Guardar datos en el Local Storage
-        localStorage.setItem('compra', JSON.stringify({
-            nombreConcierto: nombreConcierto,
-            cantidadEntradas: cantidadEntradas,
-            costoTotal: costoTotal
-        }));
+        localStorage.setItem('ticketsComprados', JSON.stringify(arrayConNuevoTicket));
 
         // Mostrar resumen de la compra
         resultadoDiv.innerHTML = `
@@ -95,6 +103,9 @@ document.addEventListener('DOMContentLoaded', function() {
             <p>Cantidad de entradas: ${cantidadEntradas}</p>
             <p>Costo total: $${costoTotal}</p>
         `;
+
+        cantidadInput.value = 1;
+        conciertoInput[0].selected = true;
     }
 
     comprarBtn.addEventListener('click', function() {
@@ -118,19 +129,25 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Función para cargar los datos del Local Storage
     function cargarDatosPrevios() {
-        const compraGuardada = localStorage.getItem('compra');
+        const compraGuardada = localStorage.getItem('ticketsComprados');
+
         if (compraGuardada) {
             const datosCompra = JSON.parse(compraGuardada);
-            conciertoInput.value = datosCompra.nombreConcierto.toLowerCase();
-            cantidadInput.value = datosCompra.cantidadEntradas;
+            let html = '<h2>Compra previa guardada:</h2>';
+            datosCompra.forEach(datos => {
+                html += `
+                    <div>
+                        <p>Concierto: ${datos.nombreConcierto}</p>
+                        <p>Cantidad de entradas: ${datos.cantidadEntradas}</p>
+                        <p>Costo total: $${datos.costoTotal}</p>
+                    </div>
+                    <hr/>
+                `;
+            })
 
-            resultadoDiv.innerHTML = `
-                <h2>Compra previa guardada:</h2>
-                <p>Concierto: ${datosCompra.nombreConcierto}</p>
-                <p>Cantidad de entradas: ${datosCompra.cantidadEntradas}</p>
-                <p>Costo total: $${datosCompra.costoTotal}</p>
-            `;
+            resultadoDivCompraPrevia.innerHTML = html;
         }
     }
 });
+
 
