@@ -1,23 +1,53 @@
 <!DOCTYPE html>
+
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Compra de Entradas para Conciertos</title>
-    <script defer src="MainEntrada.js"></script> 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Agdasima:wght@400;700&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./styles.css">
 </head>
-<body>
-    <h1>Compra de Entradas Conciertos CABA</h1>
-    <label for="concierto">Seleccione un concierto:</label>
-    <select id="concierto">
-    </select>
-    <label for="cantidad">Cantidad de entradas:</label>
-    <input type="number" id="cantidad" min="1" placeholder="Ingrese cantidad">
 
-    <button id="comprarBtn">Comprar Entradas</button>
+<body class= "store">
+    <header class= "header">
+        <p class= "header__logo" >Joffre's Rage</p>
+    </header>
+    <main class="main">
+        <h1 class="main__heading main__heading--1">Compra de entradas conciertos - CABA</h1>
+        <h2 class="main__heading main__heading--2">Los mejores precios de la ciudad!</h2>
+    </main>
+    <section class="conciertos">
+        <form class="conciertos__form">
+            <div class="conciertos__form-group">
+                <label for="concierto">Seleccione un concierto:</label>
+                <select id="concierto">
+                </select>
+            </div>
+            <div class="conciertos__form-group">
+                <label for="cantidad">Cantidad de entradas:</label>
+                <input type="number" id="cantidad" min="1" placeholder="Ingrese cantidad">
+            </div>
+        
+            <button id="comprarBtn" type="submit">Comprar Entradas</button>
+        </form>
+    </section>
 
-    <div id="resultado"></div>
-    <div id="compraPrevia"></div>
+    <section class="resultado-container">
+        <div id="resultado"></div>
+    </section>
+    
+    <section class="compraPrevia-container">
+        <div id="compraPrevia"></div>
+    </section>
+
+    <footer class="footer">
+        <p class="footer__copyright">&copy; 2024 Joffre's Rage. Todos los derechos reservados.</p>
+    </footer>
+
+    <script defer src="MainEntrada.js"></script> 
 </body>
 </html>
