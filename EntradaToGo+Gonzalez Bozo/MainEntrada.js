@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const comprarBtn = document.getElementById('comprarBtn');    
     const resultadoDiv = document.getElementById('resultado');
     const resultadoDivCompraPrevia = document.getElementById('compraPrevia');
+    const form = document.querySelector('.conciertos__form')
 
     const database =  [
     {"nombre": "Slipknot", "precio": 500 },
@@ -61,7 +62,26 @@ document.addEventListener('DOMContentLoaded', function() {
     { "nombre": "Bad Omens","precio": 800 }
     ];
 
-    const arrayDeNombresDeConciertos = database.map(concierto => concierto.nombre);
+ 
+    
+    form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        if (!conciertoInput.value || !cantidadInput.value) {
+            return
+        }
+
+        Swal.fire({
+            icon: 'success',
+            title: 'Tickets adquiridos!',
+            text: 'En unos minutos lo recibiras en tu correo...',
+        });
+    })
+
+    const arrayDeNombresDeConciertos = database.map(concierto => {
+        return concierto?.nombre
+    });
+
     agregarConciertosAlSelect(conciertoInput, arrayDeNombresDeConciertos);
 
     cargarDatosPrevios();
@@ -69,7 +89,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function agregarConciertosAlSelect(elemento, arrayDeConciertos) {
         let html = '';
         arrayDeConciertos.forEach(concierto => {
-            html += `<option value="${concierto.toLowerCase()}">${concierto}</option>`;
+            html += `<option value="${concierto?.toLowerCase()}">${concierto}</option>`;
         });
         elemento.innerHTML = html;
     }
@@ -96,10 +116,10 @@ document.addEventListener('DOMContentLoaded', function() {
         localStorage.setItem('ticketsComprados', JSON.stringify(arrayConNuevoTicket));
 
         resultadoDiv.innerHTML = `
-            <h2>Resumen de tu compra:</h2>
-            <p>Concierto: ${nombreConcierto}</p>
-            <p>Cantidad de entradas: ${cantidadEntradas}</p>
-            <p>Costo total: $${costoTotal}</p>
+            <h2>Resumen de tu compra</h2>
+            <p><strong>Concierto:</strong> ${nombreConcierto}</p>
+            <p><strong>Cantidad de entradas:</strong> ${cantidadEntradas}</p>
+            <p><strong>Costo total:</strong> $${costoTotal}</p>
         `;
 
         cantidadInput.value = 1;
@@ -138,15 +158,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if (compraGuardada) {
             const datosCompra = JSON.parse(compraGuardada);
-            let html = '<h2>Compra previa guardada:</h2>';
+            let html = '<h2>Compra previa guardada</h2>';
             datosCompra.forEach(datos => {
                 html += `
-                    <div>
-                        <p>Concierto: ${datos.nombreConcierto}</p>
-                        <p>Cantidad de entradas: ${datos.cantidadEntradas}</p>
-                        <p>Costo total: $${datos.costoTotal}</p>
+                    <div class="compra-guardada">
+                        <p><strong>Concierto:</strong> ${datos.nombreConcierto}</p>
+                        <p><strong>Cantidad de entradas:</strong> ${datos.cantidadEntradas}</p>
+                        <p><strong>Costo total:</strong> $${datos.costoTotal}</p>
                     </div>
-                    <hr/>
                 `;
             });
 
