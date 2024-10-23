@@ -1,68 +1,25 @@
-document.addEventListener('DOMContentLoaded', function() {
+const database = [];
+
+async function llamarDatabase() {
+    try {
+        const response = await fetch('conciertos.json');
+        const result = await response.json();
+
+        database.push(...result);
+    } catch (error) {
+        console.error('Error fetching data:', error);
+    }
+}
+
+document.addEventListener('DOMContentLoaded', async function() {
+    await llamarDatabase()
+
     const conciertoInput = document.getElementById('concierto');
     const cantidadInput = document.getElementById('cantidad');   
     const comprarBtn = document.getElementById('comprarBtn');    
     const resultadoDiv = document.getElementById('resultado');
     const resultadoDivCompraPrevia = document.getElementById('compraPrevia');
     const form = document.querySelector('.conciertos__form')
-
-    const database =  [
-    {"nombre": "Slipknot", "precio": 500 },
-    { "nombre": "Metallica", "precio": 600 },
-    { "nombre": "Nirvana", "precio": 550 },
-    { "nombre": "Slipknot", "precio": 500 },
-    { "nombre": "Metallica", "precio": 600 },
-    { "nombre": "Nirvana", "precio": 550 },
-    { "nombre": "AC/DC", "precio": 700 },
-    { "nombre": "Led Zeppelin", "precio": 650 },
-    { "nombre": "Pink Floyd", "precio": 680 },
-    { "nombre": "Queen", "precio": 750 },
-    { "nombre": "The Beatles", "precio": 800 },
-    { "nombre": "The Rolling Stones", "precio": 720 },
-    { "nombre": "Guns N' Roses", "precio": 670 },
-    { "nombre": "Linkin Park", "precio": 600 },
-    { "nombre": "Green Day", "precio": 590 },
-    { "nombre": "The Who", "precio": 710 },
-    { "nombre": "Aerosmith", "precio": 640 },
-    { "nombre": "Red Hot Chili Peppers", "precio": 630 },
-    { "nombre": "Foo Fighters", "precio": 620 },
-    { "nombre": "Rammstein", "precio": 680 },
-    { "nombre": "The Doors", "precio": 690 },
-    { "nombre": "KISS", "precio": 610 },
-    { "nombre": "Pearl Jam", "precio": 650 },
-    { "nombre": "The Smashing Pumpkins", "precio": 620 },
-    { "nombre": "Deep Purple", "precio": 670 },
-    { "nombre": "Black Sabbath", "precio": 750 },
-    { "nombre": "Iron Maiden", "precio": 700 },
-    { "nombre": "System of a Down", "precio": 580 },
-    { "nombre": "Soundgarden", "precio": 590 },
-    { "nombre": "Pantera", "precio": 640 },
-    { "nombre": "Megadeth", "precio": 680 },
-    { "nombre": "Judas Priest", "precio": 710 },
-    { "nombre": "Rage Against the Machine", "precio": 650 },
-    { "nombre": "Avenged Sevenfold", "precio": 630 },
-    { "nombre": "Muse", "precio": 620 },
-    { "nombre": "Radiohead", "precio": 690 },
-    { "nombre": "The Strokes", "precio": 600 },
-    { "nombre": "The Killers", "precio": 620 },
-    { "nombre": "Arctic Monkeys", "precio": 610 },
-    { "nombre": "Motörhead", "precio": 700 },
-    { "nombre": "Disturbed", "precio": 650 },
-    { "nombre": "Evanescence", "precio": 620 },
-    { "nombre": "Marilyn Manson", "precio": 630 },
-    { "nombre": "The Cure", "precio": 680 },
-    { "nombre": "Fall Out Boy","precio": 610 },
-    { "nombre": "Bring Me the Horizon","precio": 590 },
-    { "nombre": "Blink-182", "precio": 600 },
-    { "nombre": "Paramore", "precio": 580 },
-    { "nombre": "Thirty Seconds to Mars", "precio": 620 },
-    { "nombre": "Breaking Benjamin", "precio": 590 },
-    { "nombre": "My Chemical Romance", "precio": 650 },
-    { "nombre": "Limp Bizkit", "precio": 600 },
-    { "nombre": "Bad Omens","precio": 800 }
-    ];
-
- 
     
     form.addEventListener('submit', async (event) => {
         event.preventDefault();
@@ -173,3 +130,4 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 });
+
